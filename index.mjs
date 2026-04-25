@@ -202,6 +202,24 @@ app.post("/updateQuote", isAuthenticated, async (req, res) => {
     res.redirect('/quotes');
 });
 
+app.get("/deleteQuote", isAuthenticated, async (req, res) => {
+    let quoteId = req.query.quoteId;
+    let sql = `SELECT * FROM quotes WHERE quoteId = ?`;
+    const [quoteInfo] = await pool.query(sql, [quoteId]);
+
+    let authorsSql = `SELECT authorId, firstName, lastName FROM authors WHERE authorId = ?`;
+    const [authorsList] = await pool.query(authorsSql, [quoteInfo[0].authorId])
+    res.render("deleteQuote.ejs", { quoteInfo, authorsList});
+});
+
+app.post("/deleteQuote", isAuthenticated, async (req, res) => {
+    let quoteId = req.body.quoteId;
+    let sql = `DELETE FROM quotes WHERE quoteId = ?`;
+    let sqlParams = [quoteId];
+    const [rows] = await pool.query(sql, sqlParams);
+    res.redirect("/quotes");
+});
+
 //renders the new quote form
 app.get("/newQuote", isAuthenticated, async (req, res) => {
     let authorsSql = `SELECT authorId, firstName, lastName 

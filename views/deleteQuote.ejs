@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <%- include('partials/navbar.ejs') %>
+    <h1> Deleting Quote</h1>
+    <p>Are you sure that you want to delete this quote?</p>
+    <p><%= quoteInfo[0].quote %></p>
+    <p>By: <%= authorsList[0].firstName %> <%= authorsList[0].lastName%></p>
+    <form action="/deleteQuote" method="POST">
+        <input type="hidden" name="quoteId" value="<%= quoteInfo[0].quoteId%>">
+        <button type="submit">Delete Quote</button>
+    </form>
+</body>
+</html>
