@@ -8,11 +8,11 @@
 <body>
     <%- include('partials/navbar.ejs') %>
     <h1> All Quotes </h1>
-
     <% for(let i of quotes) { %>
         <a href="/updateQuote?quoteId=<%= i.quoteId%>">Update</a>
 
         <%= i.quote%><br>
     <% } %>
+    <%- include('partials/footer')%>
 </body>
 </html>
