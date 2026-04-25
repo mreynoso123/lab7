@@ -2,6 +2,9 @@ import express from 'express';
 import mysql from 'mysql2/promise';
 import session from 'express-session';
 import bcrypt from 'bcrypt';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
 app.set('view engine', 'ejs');
@@ -10,17 +13,17 @@ app.use(express.static('public'));
 app.use(express.urlencoded({ extended: true }));
 //setting up database connection pool, replace values in red
 const pool = mysql.createPool({
-    host: "m7nj9dclezfq7ax1.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
-    user: "ktnlj1fo3fenphbv",
-    password: "t44kxygvg4vpthyr",
-    database: "fuk2ymnz7c1m9sbh",
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_NAME,
     connectionLimit: 10,
     waitForConnections: true
 });
 
 //session middleware for user auth
 app.use(session({
-  secret: 'secretkey',
+  secret: process.env.SECRET_KEY,
   resave: false,
   saveUninitialized: true,
 }));
@@ -77,7 +80,7 @@ app.post('/login', async (req, res) => {
     }
 });
 
-app.get("/authors", async (req, res) => {
+app.get("/authors", isAuthenticated, async (req, res) => {
     let sql = `SELECT firstName, lastName, authorId 
     FROM authors 
     ORDER BY lastName`;
@@ -88,7 +91,7 @@ app.get("/authors", async (req, res) => {
 });
 
 //Display the form to update an exisiting author
-app.get("/updateAuthor", async (req, res) => {
+app.get("/updateAuthor", isAuthenticated, async (req, res) => {
     let authorId = req.query.authorId;
     let sql = `SELECT *, DATE_FORMAT(dob, '%Y-%m-%d') ISOdob, DATE_FORMAT(dod, '%Y-%m-%d') ISOdod
     FROM authors 
@@ -97,7 +100,7 @@ app.get("/updateAuthor", async (req, res) => {
     res.render("updateAuthor.ejs", { authorInfo });
 });
 
-app.post("/updateAuthor", async (req, res) => {
+app.post("/updateAuthor", isAuthenticated, async (req, res) => {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
     let dob = req.body.dob;
@@ -118,7 +121,7 @@ app.post("/updateAuthor", async (req, res) => {
     res.redirect('/authors');
 });
 
-app.get("/deleteAuthor", async (req, res) => {
+app.get("/deleteAuthor", isAuthenticated, async (req, res) => {
     let authorId = req.query.authorId;
     let sql = `SELECT *, DATE_FORMAT(dob, '%Y-%m-%d') ISOdob, DATE_FORMAT(dod, '%Y-%m-%d') ISOdod
     FROM authors 
@@ -127,7 +130,7 @@ app.get("/deleteAuthor", async (req, res) => {
     res.render("deleteAuthor.ejs", { authorInfo });
 });
 
-app.post("/deleteAuthor", async (req, res) => {
+app.post("/deleteAuthor", isAuthenticated, async (req, res) => {
     let authorId = req.body.authorId;
     
     let sql = `DELETE FROM authors WHERE authorId = ?`;
@@ -137,7 +140,7 @@ app.post("/deleteAuthor", async (req, res) => {
     res.redirect('/authors');
 });
 
-app.get("/quotes", async (req, res) => {
+app.get("/quotes", isAuthenticated, async (req, res) => {
     let sql = `SELECT quote, quoteId 
     FROM quotes 
     ORDER BY quote`;
@@ -148,7 +151,7 @@ app.get("/quotes", async (req, res) => {
 });
 
 //Displays the form we just made
-app.get("/updateQuote", async (req, res) => {
+app.get("/updateQuote", isAuthenticated, async (req, res) => {
     //Getting the id of the quote that will prepoulate teh update form
     let quoteId = req.query.quoteId;
     //select the data for the one specific quote we're updating
@@ -171,7 +174,7 @@ app.get("/updateQuote", async (req, res) => {
     res.render("updateQuote.ejs", { quoteInfo, authorsList, categoriesList });
 });
 
-app.post("/updateQuote", async (req, res) => {
+app.post("/updateQuote", isAuthenticated, async (req, res) => {
     let quoteId = req.body.quoteId;
     let authorId = req.body.authorId;
     let category = req.body.category;
@@ -191,12 +194,12 @@ app.post("/updateQuote", async (req, res) => {
 });
 
 //renders the new quote form
-app.get("/newQuote", async (req, res) => {
+app.get("/newQuote", isAuthenticated, async (req, res) => {
     res.render("newQuote.ejs");
 });
 
 //saves a new quote to the database
-app.post("/newQuote", async (req, res) => {
+app.post("/newQuote", isAuthenticated, async (req, res) => {
     let quote = req.body.quote;
     let authorId = req.body.authorId;
     let category = req.body.category;
@@ -207,11 +210,11 @@ app.post("/newQuote", async (req, res) => {
     res.redirect("/");
 });
 
-app.get("/newAuthor", (req, res) => {
+app.get("/newAuthor", isAuthenticated, (req, res) => {
     res.render("newAuthor.ejs");
 });
 
-app.post("/newAuthor", async (req, res) => {
+app.post("/newAuthor", isAuthenticated, async (req, res) => {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
     let dob = req.body.dob;
