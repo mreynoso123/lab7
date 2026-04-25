@@ -113,6 +113,7 @@ app.post("/updateAuthor", isAuthenticated, async (req, res) => {
     let firstName = req.body.firstName;
     let lastName = req.body.lastName;
     let dob = req.body.dob;
+    let dod = req.body.dod;
     let sex = req.body.sex;
     let authorId = req.body.authorId;
     
@@ -121,11 +122,12 @@ app.post("/updateAuthor", isAuthenticated, async (req, res) => {
                 firstName = ?,
                 lastName = ?, 
                 dob = ?,
+                dod = ?,
                 sex = ?
                 WHERE authorId = ?
                 `;
 
-    let sqlParams = [firstName, lastName, dob, sex, authorId];
+    let sqlParams = [firstName, lastName, dob, dod,sex, authorId];
     const [rows] = await pool.query(sql, sqlParams);
     res.redirect('/authors');
 });
