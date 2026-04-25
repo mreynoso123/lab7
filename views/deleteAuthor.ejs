@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+</head>
+
+<body class="bg-info text-black">
+    <%- include('partials/header')%>
+
+        <h1> Deleting Author</h1>
+        
+        <form action="/deleteAuthor" method="POST" >
+            <%= authorInfo[0].firstName%><br>
+            <%= authorInfo[0].lastName%><br>
+            <%= authorInfo[0].dob%><br>
+            <%= authorInfo[0].sex%><br>
+
+            <input type="hidden" class="form-group" name="authorId" value="<%= authorInfo[0].authorId%>">
+            <button class="btn btn-primary">Delete Author??</button>
+        </form>
+        <%- include('partials/footer')%>
+</body>
+
+</html>
