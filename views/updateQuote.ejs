@@ -21,8 +21,7 @@
             <textarea name="quote"><%= quoteInfo[0].quote %></textarea>
             
             <select name="authorId">
-                <% for (author of authorsList) {%>
-
+                <% for (let author of authorsList) {%>
                     <% if (author.authorId == quoteInfo[0].authorId) { %>
                         <option value="<%= author.authorId%>" selected><%= author.firstName %> <%= author.lastName %></option>
                     <% } else {%>
@@ -35,11 +34,11 @@
             </select><br><br>
 
             <select name="category">
-                <% for (category of categoriesList) {%>
-                    <% if (author.authorId == quoteInfo[0].authorId) { %>
-                        <option value="<%= quoteInfo[0].category %>" selected><%= quoteInfo[0].category %></option>
+                <% for (let category of categoriesList) {%>
+                    <% if (category.category == quoteInfo[0].category) { %>
+                        <option value="<%= category.category %>" selected><%= category.category %></option>
                     <% } else {%>
-                        <option value="<%=  %>"><%=  %></option>
+                        <option value="<%= category.category %>"><%= category.category %></option>
                     <% } %>
                 <% } %>
             </select>

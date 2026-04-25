@@ -161,7 +161,7 @@ app.get("/quotes", isAuthenticated, async (req, res) => {
 
 //Displays the form we just made
 app.get("/updateQuote", isAuthenticated, async (req, res) => {
-    //Getting the id of the quote that will prepoulate teh update form
+    //Getting the id of the quote that will prepoulate the update form
     let quoteId = req.query.quoteId;
     //select the data for the one specific quote we're updating
     //so it can be plugged into the form
@@ -204,7 +204,13 @@ app.post("/updateQuote", isAuthenticated, async (req, res) => {
 
 //renders the new quote form
 app.get("/newQuote", isAuthenticated, async (req, res) => {
-    res.render("newQuote.ejs");
+    let authorsSql = `SELECT authorId, firstName, lastName 
+    FROM authors`;
+    const[authorsList] = await pool.query(authorsSql);
+
+    let categoriesSql = `SELECT DISTINCT category FROM quotes`;
+    const[categoriesList] = await pool.query(categoriesSql);
+    res.render("newQuote.ejs", { authorsList, categoriesList});
 });
 
 //saves a new quote to the database

@@ -12,20 +12,25 @@
 <body class="bg-success text-black">
     <%- include('partials/navbar.ejs') %>
         <form action="/newQuote" method="POST">
-
             <label for="quoteInput">Quote</label>
             <input id="quoteInput" class="form-group" placeholder="Quote" name="quote">
             <br>
             <label for="authorInput">Author</label>
             <select id="authorInput" name="authorId">
-                <option value="1">Albert Einstein</option>
-                <option value="2">Agatha Christie</option>
+                <% for(let i of authorsList) {%>
+                    <option value="<%= i.authorId%>"><%= i.firstName %> <%= i.lastName %></option>
+                <% } %>
+                <!-- <option value="1">Albert Einstein</option>
+                <option value="2">Agatha Christie</option> -->
             </select>
             <br>
             <label for="categoryInput">Category</label>
             <select id="categoryInput" name="category">
-                <option value="Inspirational">Inspirational</option>
-                <option value="Wisdom">Wisdom</option>
+                <% for (let i of categoriesList) {%>
+                    <option value="<%= i.category%>"><%= i.category%></option>
+                <% } %>
+                <!-- <option value="Inspirational">Inspirational</option>
+                <option value="Wisdom">Wisdom</option> -->
             </select>
             <br>
             <button class="btn btn-default">Submit</button>
