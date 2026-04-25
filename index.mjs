@@ -28,15 +28,15 @@ app.use(session({
   saveUninitialized: true,
 }));
 
-//middleware
+// Middleware, make session user data available to all EJS templates.
 app.use((req, res, next) => {
-   console.log(req.url);
-   next(); //next middleware/route
+  res.locals.userName = req.session?.username || null;
+  next();
 });
 
 // middleware to check if user is authenticated
 function isAuthenticated(req, res, next) {
-  if (req.session.adminId) return next();
+  if (req.session.adminId != null) return next();
   res.redirect('/login');
 }
 
