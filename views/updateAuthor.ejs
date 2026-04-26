@@ -1,64 +1,72 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Update Author</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Lab 7 - Admin Site</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="/css/styles.css">
 </head>
 
 <body class="bg-info text-black">
     <%- include('partials/navbar.ejs') %>
-        <h1> Updating Author</h1>
-        
-        <form action="/updateAuthor" method="POST" >
-            <%= authorInfo[0].firstName%><br>
-            <%= authorInfo[0].lastName%><br>
-            <%= authorInfo[0].dob%><br>
-            <%= authorInfo[0].sex%><br>
+    <div class="page-wrap">
+        <div class="card-clean">
+            <h1> Updating Author</h1>
+            <form action="/updateAuthor" method="POST" >
+                <%= authorInfo[0].firstName%><br>
+                <%= authorInfo[0].lastName%><br>
+                <%= authorInfo[0].dob%><br>
+                <%= authorInfo[0].sex%><br>
 
-            <input type="hidden" class="form-group" name="authorId" value="<%= authorInfo[0].authorId%>">
-            <label for="firstNameInput">First Name: </label>
-            <input id="firstNameInput" class="form-group" placeholder="First Name" name="firstName" value="<%= authorInfo[0].firstName%>">
-            <br>
-            <label for="lastNameInput">Last Name: </label>
-            <input id="lastNameInput" class="form-group" placeholder="Last Name" name="lastName" value="<%= authorInfo[0].lastName%>">
-            <br>
-            <label for="dobInput">Date of Birth: </label>
-            <input type="date" name="dob" value="<%= authorInfo[0].ISOdob%>"">
-            <br>
-            <label for="dodInput">Date of Death: </label>
-            <input type="date" name="dod" value="<%= authorInfo[0].ISOdod%>">
-            <br>
-            Sex:
-            <label><input type="radio" 
-                <% if (authorInfo[0].sex == 'F') { %>
-                checked 
-                <% } %>
-                value="F" name="sex"> F </label>
-            <label><input type="radio" 
-            
-                <%=(authorInfo[0].sex == 'M')?"checked":""%> 
+                <input type="hidden" class="form-group" name="authorId" value="<%= authorInfo[0].authorId%>">
+                <label for="firstNameInput">First Name: </label>
+                <input id="firstNameInput" class="form-group" placeholder="First Name" name="firstName" value="<%= authorInfo[0].firstName%>">
+                <br>
+
+                <label for="lastNameInput">Last Name: </label>
+                <input id="lastNameInput" class="form-group" placeholder="Last Name" name="lastName" value="<%= authorInfo[0].lastName%>">
+                <br>
+
+                <label for="dobInput">Date of Birth: </label>
+                <input type="date" name="dob" value="<%= authorInfo[0].ISOdob%>"">
+                <br>
+
+                <label for="dodInput">Date of Death: </label>
+                <input type="date" name="dod" value="<%= authorInfo[0].ISOdod%>">
+                <br>
+
+                Sex:
+                <label><input type="radio" 
+                    <% if (authorInfo[0].sex == 'F') { %>
+                    checked 
+                    <% } %>
+                    value="F" name="sex"> F </label>
+                <label><input type="radio" 
                 
-                value="M" name="sex"> M </label> <br>
+                    <%=(authorInfo[0].sex == 'M')?"checked":""%> 
+                    
+                    value="M" name="sex"> M </label> <br>
 
-            <!-- <label for="professionInput">Profession: </label>
-            <input id="professionInput" class="form-group" placeholder="Profession" name="profession">
-            <br>
-            <label for="countryInput">Country: </label>
-            <input id="countryInput" class="form-group" placeholder="Country" name="country">
-            <br>
-            <label for="portraitInput">Portrait URL: </label>
-            <textarea id="portraitInput" class="form-group" placeholder="Add your URL here" name="portrait"></textarea>
-            <br>
-            <label for="biographyInput">Biography: </label>
-            <textarea id="biographyInput" class="form-group" placeholder="Add the bio here" name="biography"></textarea>
-            <br> -->
-            <button class="btn btn-primary">Update Author!</button>
-        </form>
-        <%- include('partials/footer')%>
+                <!-- <label for="professionInput">Profession: </label>
+                <input id="professionInput" class="form-group" placeholder="Profession" name="profession">
+                <br>
+                <label for="countryInput">Country: </label>
+                <input id="countryInput" class="form-group" placeholder="Country" name="country">
+                <br>
+                <label for="portraitInput">Portrait URL: </label>
+                <textarea id="portraitInput" class="form-group" placeholder="Add your URL here" name="portrait"></textarea>
+                <br>
+                <label for="biographyInput">Biography: </label>
+                <textarea id="biographyInput" class="form-group" placeholder="Add the bio here" name="biography"></textarea>
+                <br> -->
+                <button class="btn btn-primary">Update Author!</button>
+            </form>
+        </div>
+    </div>
+
+    <%- include('partials/footer')%>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>

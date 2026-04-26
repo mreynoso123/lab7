@@ -1,10 +1,31 @@
-<% if(userName) { %>
-    <a href="/">Home</a>
-    <a href="/authors">Authors</a>
-    <a href="/quotes">Quotes</a>
-    <a href="/newAuthor">New Author</a>
-    <a href="/newQuote">New Quote</a>
-    <a href="/logout">Logout</a>
-<% } else { %>
-    <a href="/login">Login</a>
-<% } %>
+<nav class="navbar navbar-expand-lg bg-white border-bottom">
+  <div class="container">
+    <a class="navbar-brand fw-semibold" href="/">Admin Site</a>
+
+    <button
+      class="navbar-toggler"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#mainNav"
+      aria-controls="mainNav"
+      aria-expanded="false"
+      aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="mainNav">
+      <div class="navbar-nav ms-auto">
+        <% if (userName) { %>
+          <a class="nav-link" href="/">Home</a>
+          <a class="nav-link" href="/authors">Authors</a>
+          <a class="nav-link" href="/quotes">Quotes</a>
+          <a class="nav-link" href="/newAuthor">New Author</a>
+          <a class="nav-link" href="/newQuote">New Quote</a>
+          <a class="nav-link" href="/logout">Logout</a>
+        <% } else { %>
+          <a class="nav-link" href="/login">Login</a>
+        <% } %>
+      </div>
+    </div>
+  </div>
+</nav>

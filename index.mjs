@@ -30,7 +30,7 @@ app.use(session({
 
 // Middleware, make session user data available to all EJS templates.
 app.use((req, res, next) => {
-  res.locals.userName = req.session?.username || null;
+  res.locals.userName = req.session.username;
   next();
 });
 
