@@ -8,17 +8,12 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
-<body class="bg-info text-black">
+<body>
     <%- include('partials/navbar.ejs') %>
     <div class="page-wrap">
         <div class="card-clean">
             <h1> Updating Author</h1>
             <form action="/updateAuthor" method="POST" >
-                <%= authorInfo[0].firstName%><br>
-                <%= authorInfo[0].lastName%><br>
-                <%= authorInfo[0].dob%><br>
-                <%= authorInfo[0].sex%><br>
-
                 <input type="hidden" class="form-group" name="authorId" value="<%= authorInfo[0].authorId%>">
                 <label for="firstNameInput">First Name: </label>
                 <input id="firstNameInput" class="form-group" placeholder="First Name" name="firstName" value="<%= authorInfo[0].firstName%>">
@@ -29,7 +24,7 @@
                 <br>
 
                 <label for="dobInput">Date of Birth: </label>
-                <input type="date" name="dob" value="<%= authorInfo[0].ISOdob%>"">
+                <input type="date" name="dob" value="<%= authorInfo[0].ISOdob%>">
                 <br>
 
                 <label for="dodInput">Date of Death: </label>

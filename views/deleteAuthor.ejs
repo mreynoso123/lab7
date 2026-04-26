@@ -8,20 +8,19 @@
   <link rel="stylesheet" href="/css/styles.css">
 </head>
 
-<body class="bg-info text-black">
+<body>
     <%- include('partials/navbar.ejs') %>
     <div class="page-wrap">
         <div class="card-clean">
-        <!-- page-specific content goes here -->
-        <h1> Deleting Author</h1>
-        <form action="/deleteAuthor" method="POST" >
-            <%= authorInfo[0].firstName%><br>
-            <%= authorInfo[0].lastName%><br>
-            <%= authorInfo[0].dob%><br>
-            <%= authorInfo[0].sex%><br>
-            <input type="hidden" class="form-group" name="authorId" value="<%= authorInfo[0].authorId%>">
-            <button class="btn btn-primary">Delete Author??</button>
-        </form>
+            <h1> Deleting Author</h1>
+            <form action="/deleteAuthor" method="POST" >
+                <%= authorInfo[0].firstName%><br>
+                <%= authorInfo[0].lastName%><br>
+                <%= authorInfo[0].dob%><br>
+                <%= authorInfo[0].sex%><br>
+                <input type="hidden" class="form-group" name="authorId" value="<%= authorInfo[0].authorId%>">
+                <button class="btn btn-primary">Delete Author??</button>
+            </form>
         </div>
     </div>
     
